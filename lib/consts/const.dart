@@ -1,4 +1,6 @@
-String apiDog = "https://thedogapi.com/";
+String apiDog = "https://api.thedogapi.com/";
+
+
 String apiDogKey = "41189990-ecd4-4d90-87eb-aa343dce3592";
 // dog Doc = https://docs.thedogapi.com/
 

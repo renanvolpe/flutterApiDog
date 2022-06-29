@@ -1,5 +1,6 @@
 import 'package:desafio_wa/functions/generate_pessoas.dart';
 import 'package:desafio_wa/models/Pessoa.dart';
+import 'package:desafio_wa/services/dog_services.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -19,17 +20,13 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Adoção de animais'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
- 
-
-  final String title;
+  const MyHomePage({Key? key }) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -93,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   for(int i = 0; i< listaPessoas!.length; i++){
                       if(emailController.text == listaPessoas![i].email){
                           print("achou");
-                          
+                          callBreeds();
                           break;
                         //TODO ir para proxima página
                       }
