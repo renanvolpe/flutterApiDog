@@ -1,15 +1,55 @@
+import 'package:desafio_wa/bloc/bloc.dart';
 import 'package:desafio_wa/functions/generate_pessoas.dart';
+import 'package:desafio_wa/functions/verify_email.dart';
 import 'package:desafio_wa/models/Pessoa.dart';
 import 'package:desafio_wa/services/dog_services.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_analytics/observer.dart';
 
-void main() {
-  runApp(const MyApp());
+
+
+
+class SimpleBlocObserver extends BlocObserver {
+  @override
+  void onEvent(Bloc bloc, Object? event) {
+    super.onEvent(bloc, event);
+    print(event);
+  }
+
+  @override
+  onTransition(Bloc bloc, Transition transition) {
+    super.onTransition(bloc, transition);
+    print(transition);
+  }
+}
+Future<void> main()  async{
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey();
+
+ 
+  Bloc.observer = SimpleBlocObserver();
+
+  runApp( 
+    MultiBlocProvider(
+        providers: [
+          BlocProvider<NavigationBloc>(
+            create: (context) => NavigationBloc(navigatorKey: _navigatorKey),
+          ),
+          ],
+          child: MyApp(
+          navigatorKey: _navigatorKey,)
+    )
+  );
+
+  //To navigation
+ 
+  
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final GlobalKey<NavigatorState> navigatorKey;
+  MyApp({Key? key, required this.navigatorKey}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -17,7 +57,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(),
@@ -87,17 +126,13 @@ class _MyHomePageState extends State<MyHomePage> {
               
               onPressed: (){
                  if (_formKey.currentState!.validate()) {
-                  for(int i = 0; i< listaPessoas!.length; i++){
-                      if(emailController.text == listaPessoas![i].email){
-                          print("achou");
-                          callBreeds();
-                          break;
-                        //TODO ir para proxima página
-                      }
-                     
 
-                     //TODO fazer um snack para fail e success
-                  }
+                  //verify email
+                  
+
+                 bool resposta = verifyEmail(listaPessoas!, emailController.text);
+                  
+                 resposta ? print("object") /* CONECTADO */ : print("object"); /* NAO CONECTADO */ 
                   
                  }
               },
