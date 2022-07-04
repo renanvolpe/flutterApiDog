@@ -3,10 +3,11 @@ import 'package:desafio_wa/functions/generate_pessoas.dart';
 import 'package:desafio_wa/functions/verify_email.dart';
 import 'package:desafio_wa/models/Pessoa.dart';
 import 'package:desafio_wa/services/dog_services.dart';
+import 'package:desafio_wa/view/view.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:firebase_analytics/observer.dart';
+
 
 
 
@@ -49,12 +50,13 @@ Future<void> main()  async{
 
 class MyApp extends StatelessWidget {
   final GlobalKey<NavigatorState> navigatorKey;
-  MyApp({Key? key, required this.navigatorKey}) : super(key: key);
+  const MyApp({Key? key, required this.navigatorKey}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -96,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
   listaPessoas ??= generatePessoas();
 
     return Scaffold(
@@ -109,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 15),
+              margin: const EdgeInsets.symmetric(horizontal: 15),
               child: Form(
                  key: _formKey,
                 child: TextFormField(
@@ -132,8 +135,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
                  bool resposta = verifyEmail(listaPessoas!, emailController.text);
                   
-                 resposta ? print("object") /* CONECTADO */ : print("object"); /* NAO CONECTADO */ 
-                  
+                 resposta ? BlocProvider.of<NavigationBloc>(context).add(Push(
+                            route: MaterialPageRoute(
+                                builder: (context) => const BreedsList(
+                                    ))))
+                          /* CONECTADO */
+                          : print("object2 "); /* NAO CONECTADO */ 
+
+                 
+
                  }
               },
               child: const Text("Entrar"))

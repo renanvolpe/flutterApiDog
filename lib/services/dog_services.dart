@@ -5,10 +5,12 @@ import 'package:desafio_wa/consts/const.dart';
 import 'package:desafio_wa/models/models.dart';
 import 'package:http/http.dart' as http;
 
-//chamada das raças dos cachorros
 
+String v1 = "v1/";
+
+//chamada das raças dos cachorros
 Future<List<Dog>> callBreeds() async {
-  String v1 = "v1/";
+  
   String breeds = "breeds";
 
 

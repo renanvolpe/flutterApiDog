@@ -4,7 +4,7 @@ import 'package:desafio_wa/models/Pessoa.dart';
 
 
 List<Pessoa> generatePessoas(){
-
+Pessoa renan = Pessoa("r@r.com", "nome1");
 Pessoa pessoa1 = Pessoa("email1@email1.com", "nome1");
 Pessoa pessoa2 = Pessoa("email2@email2.com", "nome2");
 Pessoa pessoa3 = Pessoa("email3@email3.com", "nome3");
@@ -16,6 +16,7 @@ Pessoa pessoa8 = Pessoa("email8@email8.com", "nome8");
 Pessoa pessoa9 = Pessoa("email9@email9.com", "nome9");
 
  List<Pessoa> listaPessoas = <Pessoa>[
+  renan,
   pessoa1,
   pessoa2,
   pessoa3,
