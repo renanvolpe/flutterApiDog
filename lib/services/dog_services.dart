@@ -16,7 +16,7 @@ Future<List<Dog>> callBreeds() async {
 
   Map<String, String> header = {'x-api-key': apiDogKey};
 
-  var url = Uri.parse(apiDog + v1 + breeds + "?limit=3&page=0");
+  var url = Uri.parse(apiDog + v1 + breeds + "?limit=3&page=0");  //limite de 3 raças
 
   var response = await http.get(url, headers: header);
 
